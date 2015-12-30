@@ -1,0 +1,303 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="AdminMaster.master.cs" Inherits="AdminMaster" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prime Doc</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <!-- Morris -->
+    <link href="css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet" />
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="css/plugins/iCheck/custom.css" rel="stylesheet" />
+    <link href="css/animate.css" rel="stylesheet" />
+    <link href="css/plugins/dropzone/basic.css" rel="stylesheet" />
+    <link href="css/plugins/dropzone/dropzone.css" rel="stylesheet" />
+    <link href="css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css"
+        rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+    <!-- Mainly scripts -->
+
+    <script src="js/jquery-2.1.1.js" type="text/javascript"></script>
+
+    <script src="js/bootstrap.min.js" type="text/javascript"></script>
+
+    <script src="js/plugins/metisMenu/jquery.metisMenu.js" type="text/javascript"></script>
+
+    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+
+    <!-- Custom and plugin javascript -->
+
+    <script src="js/inspinia.js" type="text/javascript"></script>
+
+    <script src="js/plugins/pace/pace.min.js" type="text/javascript"></script>
+
+    <!-- iCheck -->
+
+    <script src="js/plugins/iCheck/icheck.min.js" type="text/javascript"></script>
+
+    <!-- Data picker -->
+    <link href="css/plugins/datapicker/datepicker3.css" rel="stylesheet" />
+
+    <script src="js/plugins/datapicker/bootstrap-datepicker.js" type="text/javascript"></script>
+
+    <!-- For Multi Select -->
+
+    <script src="js/plugins/chosen/chosen.jquery.js" type="text/javascript"></script>
+
+    <link href="css/plugins/chosen/chosen.css" rel="stylesheet" />
+    
+    
+     <!-- For Time Contorl -->
+
+    <script src="nogray_js/1.2.2/ng_all.js" type="text/javascript"></script>
+
+    <script src="nogray_js/1.2.2/ng_ui.js" type="text/javascript"></script>
+
+    <script src="nogray_js/1.2.2/components/timepicker.js" type="text/javascript"></script>
+
+    
+    
+<script  type="text/javascript">
+ng.ready( function() {
+    var tp = new ng.TimePicker({
+        input: 'timepicker_input1',  // the input field id
+        //start: '9:00 am',  // what's the first available hour
+        //end: '6:00 pm',  // what's the last avaliable hour
+        top_hour: 0,  // what's the top hour (in the clock face, 0 = midnight)
+        format: 'H:i',
+        use24: true
+    });
+    
+    var tp = new ng.TimePicker({
+        input: 'timepicker_input',  // the input field id
+        //start: '9:00 am',  // what's the first available hour
+        //end: '6:00 pm',  // what's the last avaliable hour
+        top_hour: 0  ,// what's the top hour (in the clock face, 0 = midnight)
+        format : 'H:i',
+        use24: true
+    });
+});
+</script>
+
+
+
+
+
+    <script type="text/javascript">
+            $(document).ready
+            (
+                function () 
+                {
+                    $('.i-checks').iCheck
+                    (
+                        {
+                            checkboxClass: 'icheckbox_square-green',
+                            radioClass: 'iradio_square-green',
+                        }
+                    );
+                }
+            );
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {                                                                         
+            Dropzone.autoDiscover = false;
+            //Simple Dropzonejs 
+            $("#my-awesome-dropzone").dropzone({
+                url: "hn_SimpeFileUploader.ashx",
+//                maxFiles: 15,
+                addRemoveLinks: false,
+                accept: function(file, done) {
+                     var ext = file.name.substring(file.name.lastIndexOf('.') + 1);
+                     var extLower = ext.toLowerCase();
+                     if(extLower == "gif" || ext == "JPEG" || ext == "jpg" || ext == "png") {                        
+                        done();
+                    }
+                    else { done('not'); }
+                },
+                success: function(file, response) {
+                    var imgName = response;
+                    file.previewElement.classList.add("dz-success");
+                    console.log("Successfully uploaded :" + imgName);                    
+                },
+                error: function(file, response) {
+                    file.previewElement.classList.add("dz-error");
+                }
+            });
+            
+            //Second opinion files 
+            $("#secOpi-dropzone").dropzone({
+                url: "hn_SecOpinionFileUpd.ashx",
+                addRemoveLinks: false,
+                accept: function(file, done) {
+                     var ext = file.name.substring(file.name.lastIndexOf('.') + 1);
+                     var extLower = ext.toLowerCase();
+                     if(extLower == "txt" || ext == "doc") {                        
+                        done();
+                    }
+                    else { done('not'); }
+                },
+                success: function(file, response) {
+                    var imgName = response;
+                    file.previewElement.classList.add("dz-success");
+                    console.log("Successfully uploaded :" + imgName);                    
+                },
+                error: function(file, response) {
+                    file.previewElement.classList.add("dz-error");
+                }
+            });
+            
+            //this will reload after uploading the image...
+            $("#profile-pic-dropzone").dropzone({
+                url: "hn_SimpeFileUploader.ashx",
+                maxFiles: 1,
+                addRemoveLinks: false,
+                accept: function(file, done) {
+                     var ext = file.name.substring(file.name.lastIndexOf('.') + 1);
+                     var extLower = ext.toLowerCase();
+                     if(extLower == "gif" || ext == "JPEG" || ext == "jpg" || ext == "png") {                        
+                        done();
+                    }
+                    else { done('not'); }
+                },
+                success: function(file, response) {
+                    var imgName = response;
+                    file.previewElement.classList.add("dz-success");
+                    console.log("Successfully uploaded :" + imgName);
+                    location.reload();
+                },
+                error: function(file, response) {
+                    file.previewElement.classList.add("dz-error");
+                }
+            });                        
+            
+            //for multi select to work
+            var config = {
+                '.chosen-select'           : {},
+                '.chosen-select-deselect'  : {allow_single_deselect:true},
+                '.chosen-select-no-single' : {disable_search_threshold:10},
+                '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+                '.chosen-select-width'     : {width:"95%"}
+                }
+            for (var selector in config) {
+                $(selector).chosen(config[selector]);
+            }
+            
+            
+            //for date picker to work...
+            $('#data_1 .input-group.date').datepicker({
+                todayBtn: false,
+                keyboardNavigation: false,
+                forceParse: false,
+                calendarWeeks: false,
+                endDate: '+0d',autoclose: true
+            });
+            
+            $('#data_2 .input-group.date').datepicker({
+                todayBtn: false,
+                keyboardNavigation: false,
+                forceParse: false,
+                calendarWeeks: false,
+                startDate: '-0m',autoclose: true
+            });
+            
+            
+        });
+    </script>
+
+    <!-- DROPZONE -->
+
+    <script src="js/plugins/dropzone/dropzone.js" type="text/javascript"></script>
+    
+    
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body class="fixed-navigation">
+    <form id="form1" runat="server">
+    <div id="wrapper">
+        <nav class="navbar-default navbar-static-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav metismenu" id="side-menu">
+                <li class="nav-header">
+                    <div class="dropdown profile-element"> <span>
+                            <img id="imgProfile" runat="server" alt="image" class="img-circle" src="#" style="width: 48px; height: 48px"/><%--src="img/profile_small.jpg" --%>
+                             </span>
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold"><%=Session["userName"]%></strong>
+                               &nbsp;&nbsp;<b class="caret text-muted text-xs "></b>
+                             </span> </span> </a>
+                        <ul class="dropdown-menu animated fadeInRight m-t-xs">                           
+                            <li><a href="uploadImage.aspx">Upload Image</a></li>
+                            <li><a href="changepassword.aspx">Change Password</a></li>
+                            <li><asp:LinkButton ID="lbtnLogout1" runat="server" onclick="lbtnLogout_Click" CausesValidation="false">Logout</asp:LinkButton>
+                           </li>
+                        </ul>
+                    </div>
+                    <div class="logo-element">
+                        PD
+                    </div>
+                </li>
+                </ul>
+                <div id="MenuList" runat="server"></div>       
+        </div>
+    </nav>
+        <div id="page-wrapper" class="gray-bg sidebar-content">
+            <div class="row border-bottom">
+                <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars" style="padding-top:2px; padding-bottom:2px;"></i> </a>
+
+        </div>
+            <ul class="nav navbar-top-links navbar-right">
+                <li>
+                    <span class="m-r-sm text-muted welcome-message">Welcome <%=Session["firstname"]%> <%=Session["LastName"]%></span>
+                </li>
+                
+                <li class="dropdown">
+                    <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                        <i class="fa fa-bell"></i>  <span class="label label-primary"><%=Session["UnreadMsgsCount"]%></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-alerts">
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-envelope fa-fw"></i> You have <%=Session["UnreadMsgsCount"]%> messages<br>
+                                  <%--  <span class="pull-right text-muted small"><%=Session["UnreadMsgsTimeDiff"]%> minutes ago</span>--%>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+
+                    </ul>
+                </li>
+
+
+                <li>
+                         
+                        <asp:LinkButton ID="lbtnLogout" runat="server"  class="fa fa-sign-out" 
+                                    onclick="lbtnLogout_Click" CausesValidation="false">Log out </asp:LinkButton>
+
+                </li>
+            </ul>
+
+        </nav>
+            </div>
+            <div>
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+            <div class="footer">
+                <div>
+                    <strong>Copyright</strong> Prime Doc &copy; 2015-2020
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
+</body>
+</html>

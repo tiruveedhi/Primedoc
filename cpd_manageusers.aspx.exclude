@@ -1,0 +1,128 @@
+﻿<%@ Page Language="C#" MasterPageFile="~/AdminMaster.master" AutoEventWireup="true"
+    CodeFile="cpd_manageusers.aspx.cs" Inherits="cpd_manageusers" Title="PrimeDoc | Manage Users" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <ajaxToolkit:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server">
+    </ajaxToolkit:ToolkitScriptManager>
+    <asp:UpdatePanel runat="server" ID="UPanel">
+        <ContentTemplate>
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    <h2>
+                        Existing Users</h2>
+                </div>
+                <div class="col-lg-2">
+                </div>
+            </div>
+            <div class="wrapper wrapper-content animated fadeInRight ecommerce">
+                <div class="ibox-content m-b-sm border-bottom">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="control-label" for="product_name">
+                                    patient Name</label>
+                                <asp:TextBox ID="txtpatient" runat="server" placeholder="Patient Name" class="form-control"></asp:TextBox>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="control-label" for="price">
+                                    Gender</label>
+                                <asp:TextBox ID="txtgender" runat="server" placeholder="Gender" class="form-control"></asp:TextBox>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="control-label" for="quantity">
+                                    Location</label>
+                                <asp:TextBox ID="txtlocation" runat="server" class="form-control" placeholder="Location"></asp:TextBox>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="control-label" for="status">
+                                    Language</label>
+                                <%--    <select name="status" id="status" class="form-control">
+                            <option value="1" selected>Telugu</option>
+                            <option value="1" selected>Hindi</option>
+                            <option value="1" selected>English</option>
+                            <option value="1" selected>Kannada</option>
+                        </select>--%>
+                                <asp:DropDownList ID="ddllanuage" runat="server" class="form-control">
+                                    <%-- <asp:ListItem Value="1" Text="Telugu" ></asp:ListItem>
+                        <asp:ListItem Value="1" Text="Hindi" ></asp:ListItem>
+                        <asp:ListItem Value="1" Text="English" ></asp:ListItem>--%>
+                                </asp:DropDownList>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3 pull-right">
+                            <div class="form-group">
+                                <%--                        <a class="btn btn-success btn-rounded" style="width: 100%;" href="#">Search</a>
+--%>
+                                <asp:Button ID="btnSearch" class="btn btn-success btn-rounded" Style="width: 100%;"
+                                    runat="server" Text="Search" OnClick="btnSearch_Click" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="ibox">
+                                            <div style="height: 520px; overflow: auto">
+                                                <asp:GridView ID="gvsearch" runat="server" GridLines="None" AutoGenerateColumns="false"
+                                                    class='footable table table-stripped toggle-arrow-tiny'>
+                                                    <Columns>
+                                                        <asp:BoundField DataField="PAT_PATID" HeaderText="PAT_PATID" />
+                                                        <asp:BoundField DataField="PAT_FIRSTNAME" HeaderText="PatientName" />
+                                                        <asp:BoundField DataField="GND_GENDER" HeaderText="Gender" />
+                                                        <asp:BoundField DataField="DST_DISTRICTNAME" HeaderText="Location" />
+                                                        <asp:TemplateField>
+                                                            <ItemTemplate>
+                                                                <asp:Button ID="btnsuspended" CommandName="More" runat="server" Text='<%# Eval("Status") %>'
+                                                                    OnClick="btnsuspended_Click" class="btn btn-sm btn-primary m-t-n-xs" />
+                                                                <ajaxToolkit:ModalPopupExtender ID="suspended" PopupControlID="pnl_Form" runat="server"
+                                                                    TargetControlID="btnsuspended" BackgroundCssClass="Background">
+                                                                </ajaxToolkit:ModalPopupExtender>
+                                                                <asp:Panel ID="pnl_Form" runat="server" align="center" Width="50%" Style="display: none">
+                                                                    <table border="1" align="center" width="60%" style="background-color: wheat">
+                                                                        <tr>
+                                                                            <td>
+                                                                                Reason
+                                                                            </td>
+                                                                            <td>
+                                                                                <asp:TemplateField>
+                                                                                    <itemtemplate>
+                                      <asp:TextBox ID="txtreason" runat="server" ></asp:TextBox>
+                                      </itemtemplate>
+                                                                                </asp:TemplateField>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <asp:Button ID="btn_done" runat="server" Text="Done" OnClick="btn_done_Click" />
+                                                                            </td>
+                                                                        </tr>
+                                                                    </table>
+                                                                </asp:Panel>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                    </Columns>
+                                                </asp:GridView>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ContentTemplate>
+    </asp:UpdatePanel>
+</asp:Content>

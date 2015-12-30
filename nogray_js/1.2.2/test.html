@@ -1,0 +1,25 @@
+<html>
+
+<head></head>
+
+<body>
+<!-- using the component from http://www.nogray.com/time_picker.php -->
+<input type="text" id="timepicker_input" value="10:25 am">
+<script type="text/javascript" src="ng_all.js"></script>
+<script type="text/javascript" src="ng_ui.js"></script>
+<script type="text/javascript" src="components/timepicker.js"></script>
+<script type="text/javascript">
+ng.ready( function() {
+    var tp = new ng.TimePicker({
+        input: 'timepicker_input',  // the input field id
+        //start: '9:00 am',  // what's the first available hour
+        //end: '6:00 pm',  // what's the last avaliable hour
+        top_hour: 0,  // what's the top hour (in the clock face, 0 = midnight)
+        format: 'H:i',
+        use24: true
+    });
+});
+</script>
+</body>
+
+</html>

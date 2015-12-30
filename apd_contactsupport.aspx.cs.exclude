@@ -1,0 +1,48 @@
+﻿using System;
+using System.Collections;
+using System.Configuration;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Xml.Linq;
+using DAC;
+public partial class apd_contactsupport : System.Web.UI.Page
+{
+    DAC.BLL.clsGlobalBLL obj_global = new DAC.BLL.clsGlobalBLL();
+    DAC.BLL.clspatientBLL obj_patientbll = new DAC.BLL.clspatientBLL();
+    DataSet ds_ticket = new DataSet();
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+            Fill_ticket();
+        }
+
+    }
+
+    public void Fill_ticket()
+    {
+        ds_ticket = obj_global.Get_ticket();
+        ddlticket.DataTextField = "TICKET_DESC";
+        ddlticket.DataValueField = "TICKET_ID";
+        ddlticket.DataSource = ds_ticket;
+        ddlticket.DataBind();
+
+    }
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+        obj_patientbll.Patient_id = Convert.ToInt32(Session["Id"]);
+        obj_patientbll.UserTypeId = Convert.ToInt32(Session["userTypeId"]);
+        obj_patientbll.Ticket_id =Convert.ToInt32(ddlticket.SelectedValue);
+        obj_patientbll.Ticketdesc = tbdesc.Text;
+        obj_patientbll.Ticket_status = 1;
+        obj_patientbll.Insert_NewTicket(obj_patientbll);
+       
+
+    }
+}
